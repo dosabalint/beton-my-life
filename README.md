@@ -5,6 +5,12 @@
 - [user stories](https://docs.google.com/document/d/1EbOAMZjli7_XOO-_la1sdfmjK8Z7zDaVPo-xUccp8Q4/edit#heading=h.1gdayx1yx6m3)
 - [ui wireframe](https://www.figma.com/file/viEhKGN6x0Y47CCfMsqWNT/Application-UI-Wireframes)
 
+## DB
+
+- [users](https://console.firebase.google.com/u/0/project/beton-my-life--users/database/beton-my-life--users/data)
+- [bets](https://console.firebase.google.com/u/0/project/beton-my-life--bets/database/data)
+- [challenges](https://console.firebase.google.com/u/0/project/beton-my-life--challenges/database/beton-my-life--challenges/data)
+
 ## Development server
 
 Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.

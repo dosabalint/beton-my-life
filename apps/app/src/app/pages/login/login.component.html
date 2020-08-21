@@ -1,0 +1,23 @@
+<!--suppress HtmlFormInputWithoutLabel -->
+
+<div *ngIf="!(sessionQuery.isLoggedIn$ | async)">
+  <p>
+    <label for="email_input">Email</label>
+    <input
+      type="email"
+      id="email_input"
+      [(ngModel)]="email"
+      placeholder="email"
+    />
+  </p>
+
+  <p>
+    <label for="password_input">Password</label>
+    <input
+      id="password_input"
+      [(ngModel)]="password"
+      (keydown.enter)="this.tryLogin()"
+    />
+  </p>
+  <button (click)="this.tryLogin()">Login</button>
+</div>

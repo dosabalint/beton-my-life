@@ -1,0 +1,10 @@
+<ul *ngIf="sessionQuery.isLoggedIn$ | async">
+  <li *ngFor="let item of items">
+    <a [routerLink]="item.path"> {{ item.title }} </a>
+  </li>
+</ul>
+
+<!-- logout -->
+<button *ngIf="sessionQuery.isLoggedIn$ | async">
+  <a (click)="logout()"> logout </a>
+</button>
