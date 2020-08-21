@@ -15,6 +15,10 @@ export class MenuComponent {
       label: 'Home',
       routerLink: 'home',
     },
+    {
+      label: 'Profile',
+      routerLink: 'profile',
+    },
   ];
 
   constructor(

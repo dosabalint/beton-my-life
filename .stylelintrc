@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "selector-type-no-unknown": null,
+    "selector-pseudo-element-no-unknown": null
+  }
+}

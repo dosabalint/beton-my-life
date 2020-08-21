@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { NavigationStart, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { SessionService } from './services/session.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { SessionService } from './services/session.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   loading: boolean;
 
   constructor(
@@ -18,11 +18,9 @@ export class AppComponent {
     private sessionService: SessionService
   ) {
     this.loading = true;
+  }
 
-    this.router.events.subscribe((event: any) => {
-      if (event instanceof NavigationStart) {
-        this.sessionService.init();
-      }
-    });
+  ngOnInit() {
+    this.sessionService.loadProfile();
   }
 }

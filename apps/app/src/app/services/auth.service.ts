@@ -12,10 +12,24 @@ export class AuthService {
     private environmentService: EnvironmentService
   ) {}
 
-  validateToken(token: string): Observable<Object> {
-    return this.httpClient.get(
+  validateToken(token: string): Observable<void> {
+    return this.httpClient.get<void>(
       `${this.environmentService.backendUrl()}/auth/validate-token`,
       { headers: { Authorization: 'Bearer ' + token } }
     );
   }
+
+  getProfile(): Observable<ProfileDto> {
+    return this.httpClient.get<ProfileDto>(
+      `${this.environmentService.backendUrl()}/user/me`,
+      {
+        headers: { Authorization: localStorage.getItem('token') },
+      }
+    );
+  }
+}
+
+interface ProfileDto {
+  name: string;
+  email: string;
 }

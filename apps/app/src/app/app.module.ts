@@ -14,10 +14,22 @@ import { SessionStore } from './store/session.store';
 import { SessionQuery } from './store/session.query';
 import { MenuComponent } from './components/menu/menu.component';
 import { HomeComponent } from './pages/home/home.component';
-import { ContextMenuModule, InputTextModule, MenubarModule } from 'primeng';
+import {
+  CardModule,
+  ContextMenuModule,
+  InputTextModule,
+  MenubarModule,
+} from 'primeng';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, MenuComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    MenuComponent,
+    HomeComponent,
+    ProfileComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -28,6 +40,7 @@ import { ContextMenuModule, InputTextModule, MenubarModule } from 'primeng';
     MenubarModule,
     ContextMenuModule,
     InputTextModule,
+    CardModule,
   ],
   providers: [EnvironmentService, SessionStore, SessionQuery],
   bootstrap: [AppComponent],

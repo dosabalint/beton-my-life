@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SessionStore } from '../store/session.store';
 import { SessionQuery } from '../store/session.query';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,8 @@ import { SessionQuery } from '../store/session.query';
 export class SessionService {
   constructor(
     private sessionStore: SessionStore,
-    private sessionQuery: SessionQuery
+    private sessionQuery: SessionQuery,
+    private authService: AuthService
   ) {}
 
   updateUserToken(token: string) {
@@ -16,12 +18,14 @@ export class SessionService {
     localStorage.setItem('token', token);
   }
 
-  init() {
-    this.sessionQuery.token$.subscribe((token) => console.log({ token }));
-  }
-
   removeUserToken() {
     this.sessionStore.update({ token: '' });
     localStorage.removeItem('token');
+  }
+
+  loadProfile() {
+    this.authService.getProfile().subscribe((profileData) => {
+      this.sessionStore.update(profileData);
+    });
   }
 }

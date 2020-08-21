@@ -7,7 +7,7 @@ import { UserRepository } from '../repositories/user.repository';
 export class UserService {
   constructor(private userRepository: UserRepository) {}
 
-  async seed() {
+  seed() {
     const data = {
       name: 'Dósa Bálint',
       email: 'dosa.balint@gmail.com',
