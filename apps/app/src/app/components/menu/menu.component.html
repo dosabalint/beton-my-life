@@ -1,10 +1,21 @@
-<ul *ngIf="sessionQuery.isLoggedIn$ | async">
-  <li *ngFor="let item of items">
-    <a [routerLink]="item.path"> {{ item.title }} </a>
-  </li>
-</ul>
+<ng-container *ngIf="sessionQuery.isLoggedIn$ | async; else loggedOut">
+  <p-menubar [model]="secureItems" styleClass="p-mb-4">
+    <!-- logout -->
+    <p-button
+      label="Logout"
+      styleClass="p-button-text p-button-plain"
+      (click)="logout()"
+    ></p-button>
+  </p-menubar>
+</ng-container>
 
-<!-- logout -->
-<button *ngIf="sessionQuery.isLoggedIn$ | async">
-  <a (click)="logout()"> logout </a>
-</button>
+<ng-template #loggedOut>
+  <p-menubar styleClass="p-mb-4">
+    <!-- logout -->
+    <p-button
+      label="Login"
+      styleClass="p-button-text p-button-plain"
+      routerLink="login"
+    ></p-button>
+  </p-menubar>
+</ng-template>
