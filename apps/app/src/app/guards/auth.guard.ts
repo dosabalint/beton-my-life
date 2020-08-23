@@ -8,7 +8,6 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SessionQuery } from '../store/session.query';
-import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -24,16 +23,11 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.sessionQuery.token$.pipe(
-      tap((token) => {
-        console.log('[auth guard] ' + token);
-      }),
-      map((token) => !!token),
-      tap((canActivate) => {
-        if (!canActivate) {
-          this.router.navigate(['login']);
-        }
-      })
-    );
+    const isLoggedIn = !!this.sessionQuery.getValue().token;
+    if (!isLoggedIn) {
+      this.router.navigate(['login']);
+    }
+
+    return isLoggedIn;
   }
 }

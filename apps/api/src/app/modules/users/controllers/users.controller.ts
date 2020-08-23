@@ -53,7 +53,7 @@ export class UsersController {
   @ApiResponse({ status: 200, type: ProfileDto })
   @ApiForbiddenResponse({ description: 'Forbidden' })
   info(@Request() request): ProfileDto {
-    const { firstName, lastName, email } = request.user;
-    return { firstName, lastName, email };
+    const { firstName, lastName, email, id } = request.user;
+    return { firstName, lastName, email, id };
   }
 }

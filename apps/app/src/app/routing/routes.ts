@@ -5,6 +5,7 @@ import { AuthGuard } from '../guards/auth.guard';
 import { ProfileComponent } from '../pages/profile/profile.component';
 import { ChallengesComponent } from '../pages/challenges/challenges.component';
 import { RegisterComponent } from '../pages/register/register.component';
+import { MyChallengesComponent } from '../pages/my-challenges/my-challenges.component';
 
 export const routes: Routes = [
   {
@@ -38,6 +39,10 @@ export const routes: Routes = [
       {
         path: 'challenges',
         component: ChallengesComponent,
+      },
+      {
+        path: 'my-challenges',
+        component: MyChallengesComponent,
       },
     ],
   },

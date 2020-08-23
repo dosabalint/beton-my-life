@@ -16,9 +16,7 @@ export class SessionService {
 
   updateUserToken(token: string) {
     localStorage.setItem('token', token);
-    localStorage.getItem('token');
     this.sessionStore.update({ token });
-    console.log(token);
   }
 
   removeUserToken() {
@@ -28,9 +26,7 @@ export class SessionService {
 
   loadProfile() {
     this.authService.getProfile().subscribe(
-      (profileData) => {
-        this.sessionStore.update(profileData);
-      },
+      (profileData) => this.sessionStore.update(profileData),
 
       (error: HttpErrorResponse) => {
         if (error.status === 403) {
@@ -45,6 +41,11 @@ export class SessionService {
   }
 
   removeProfile() {
-    this.sessionStore.update({ email: '', firstName: '', lastName: '' });
+    this.sessionStore.update({
+      email: '',
+      firstName: '',
+      lastName: '',
+      id: '',
+    });
   }
 }

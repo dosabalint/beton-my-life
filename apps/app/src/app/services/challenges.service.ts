@@ -18,4 +18,10 @@ export class ChallengesService {
       this.environmentService.backendUrl('/challenges')
     );
   }
+
+  listByUserId(userId): Observable<ChallengeDto[]> {
+    return this.httpClient.get<ChallengeDto[]>(
+      this.environmentService.backendUrl(`/challenges/${userId}`)
+    );
+  }
 }

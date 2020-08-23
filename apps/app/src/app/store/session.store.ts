@@ -6,10 +6,12 @@ export interface SessionState {
   firstName: string;
   lastName: string;
   email: string;
+  id: string;
 }
 
 export function createInitialState(): SessionState {
   return {
+    id: '',
     token: localStorage.getItem('token'),
     firstName: '',
     lastName: '',

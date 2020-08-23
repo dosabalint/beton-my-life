@@ -23,6 +23,10 @@ export class MenuComponent {
       label: 'Challenges',
       routerLink: 'challenges',
     },
+    {
+      label: 'My Challenges',
+      routerLink: 'my-challenges',
+    },
   ];
 
   constructor(

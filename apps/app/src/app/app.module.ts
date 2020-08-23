@@ -27,6 +27,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ChallengesComponent } from './pages/challenges/challenges.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { MyChallengesComponent } from './pages/my-challenges/my-challenges.component';
+import { ShortenPipe } from './pipes/shorten.pipe';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { RegisterComponent } from './pages/register/register.component';
     ProfileComponent,
     ChallengesComponent,
     RegisterComponent,
+    MyChallengesComponent,
+    ShortenPipe,
   ],
   imports: [
     BrowserModule,

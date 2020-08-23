@@ -4,7 +4,7 @@ import { IsBoolean, IsString } from 'class-validator';
 
 const chance = Chance();
 
-export class CreateChallengeDto {
+export class ChallengeCreateDto {
   @IsString()
   @ApiProperty({ type: String, example: chance.word() })
   title: string;

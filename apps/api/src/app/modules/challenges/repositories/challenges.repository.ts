@@ -3,7 +3,7 @@ import * as Chance from 'chance';
 import { Observable } from 'rxjs';
 
 import { Challenge } from '../models/challenge';
-import { CreateChallengeDto } from '../models/create-challenge.dto';
+import { ChallengeCreateDto } from '../models/challenge-create.dto';
 import { EnvironmentService } from '../../environment/services/environment.service';
 import { Dictionary } from '../../../types/dictionary';
 import { map } from 'rxjs/operators';
@@ -22,11 +22,27 @@ export class ChallengesRepository {
       .get<Dictionary<Challenge>>(this.environmentService.getChallengeDbUrl())
       .pipe(
         map(({ data }) => data ?? {}),
-        map((dictionary) => Object.values(dictionary))
+        map((dictionary) => Object.values(dictionary)),
+        map((list) => list.filter((item) => !item.isDeleted))
       );
   }
 
-  create(challengeCreateDto: CreateChallengeDto): Observable<Challenge> {
+  listByUserId(userId: string): Observable<Challenge[]> {
+    return this.httpService
+      .get<Dictionary<Challenge>>(this.environmentService.getChallengeDbUrl(), {
+        params: {
+          orderBy: '"author"',
+          equalTo: `"${userId}"`,
+        },
+      })
+      .pipe(
+        map(({ data }) => data ?? {}),
+        map((dictionary) => Object.values(dictionary)),
+        map((list) => list.filter((item) => !item.isDeleted))
+      );
+  }
+
+  create(challengeCreateDto: ChallengeCreateDto): Observable<Challenge> {
     const id = chance.guid();
     const challenge: Challenge = {
       isDeleted: false,

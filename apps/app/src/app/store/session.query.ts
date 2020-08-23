@@ -11,6 +11,8 @@ export class SessionQuery extends Query<SessionState> {
 
   isLoggedIn$: Observable<boolean> = this.select(({ token }) => !!token);
 
+  id$: Observable<string> = this.select(({ id }) => id);
+
   userFirstName$: Observable<string> = this.select(
     ({ firstName }) => firstName
   );
