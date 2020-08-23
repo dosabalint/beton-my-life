@@ -2,9 +2,9 @@ import { HttpService, Injectable } from '@nestjs/common';
 import { map } from 'rxjs/operators';
 
 import { EnvironmentService } from '../../environment/services/environment.service';
-import { UserDtoDictionary } from '../../../types/user-dto-dictionary';
 import { Observable } from 'rxjs';
-import { UserDto } from '../../user/models/user.dto';
+import { UserDto } from '../../users/models/user.dto';
+import { Dictionary } from '../../../types/dictionary';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +15,7 @@ export class AuthService {
 
   getUserData$(token: string): Observable<UserDto> {
     return this.httpService
-      .get<UserDtoDictionary>(this.environmentService.getUserDbUrl(), {
+      .get<Dictionary<UserDto>>(this.environmentService.getUserDbUrl(), {
         params: {
           orderBy: '"token"',
           equalTo: `"${token}"`,

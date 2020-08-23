@@ -19,8 +19,13 @@ import {
   ContextMenuModule,
   InputTextModule,
   MenubarModule,
+  MessageService,
+  TableModule,
+  ToastModule,
 } from 'primeng';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ChallengesComponent } from './pages/challenges/challenges.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -29,6 +34,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
     MenuComponent,
     HomeComponent,
     ProfileComponent,
+    ChallengesComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,8 +47,11 @@ import { ProfileComponent } from './pages/profile/profile.component';
     ContextMenuModule,
     InputTextModule,
     CardModule,
+    TableModule,
+    ToastModule,
+    BrowserAnimationsModule,
   ],
-  providers: [EnvironmentService, SessionStore, SessionQuery],
+  providers: [EnvironmentService, SessionStore, SessionQuery, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

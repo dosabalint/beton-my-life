@@ -11,6 +11,10 @@
 - [bets](https://console.firebase.google.com/u/0/project/beton-my-life--bets/database/data)
 - [challenges](https://console.firebase.google.com/u/0/project/beton-my-life--challenges/database/beton-my-life--challenges/data)
 
+# API spec
+
+- [link](https://stack-attack-bed.herokuapp.com/api/)
+
 ## Development server
 
 Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.

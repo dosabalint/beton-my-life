@@ -1,20 +1,21 @@
+import { ApiForbiddenResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Request, UseGuards } from '@nestjs/common';
-import { UserRepository } from '../repositories/user.repository';
-import { UserService } from '../services/user.service';
+import { Observable } from 'rxjs';
+
+import { UsersRepository } from '../repositories/users.repository';
+import { UsersService } from '../services/users.service';
 import { AuthGuard } from '../../auth/guards/auth.guard';
 import { ProfileDto } from '../models/profile.dto';
-import { ApiForbiddenResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Observable } from 'rxjs';
 import { DbCreateMessage } from '../../../types/db-create-message';
 import { UserDto } from '../models/user.dto';
 
-@Controller('user')
+@Controller('users')
 @UseGuards(AuthGuard)
-@ApiTags('user')
-export class UserController {
+@ApiTags('users')
+export class UsersController {
   constructor(
-    private userService: UserService,
-    private userRepository: UserRepository
+    private userService: UsersService,
+    private userRepository: UsersRepository
   ) {}
 
   @Get()

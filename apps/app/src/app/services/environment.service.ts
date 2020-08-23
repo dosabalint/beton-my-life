@@ -5,7 +5,11 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class EnvironmentService {
-  backendUrl(): string {
+  backendUrl(path: string = ''): string {
+    if (path) {
+      return environment.backendUrl + path;
+    }
+
     return environment.backendUrl;
   }
 }

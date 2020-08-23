@@ -1,14 +1,19 @@
 import { HttpService, Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import * as Chance from 'chance';
+import * as objectHash from 'object-hash';
 
 import { EnvironmentService } from '../../environment/services/environment.service';
 import { UserDto } from '../models/user.dto';
 import { extractResponseData } from '../../../helpers/operators/extractResponseData';
 import { DbCreateMessage } from '../../../types/db-create-message';
+import { User } from '../models/user';
+
+const chance = Chance();
 
 @Injectable()
-export class UserRepository {
+export class UsersRepository {
   constructor(
     private environmentService: EnvironmentService,
     private httpService: HttpService
@@ -41,5 +46,19 @@ export class UserRepository {
 
   getFirstByToken(token: string) {
     return this.getByToken(token).pipe(map((list) => Object.values(list)[0]));
+  }
+
+  mock(): User {
+    const data = {
+      id: chance.guid(),
+      name: chance.name(),
+      email: chance.email(),
+      pass: chance.word(),
+    };
+
+    return {
+      ...data,
+      token: objectHash(data.email + ':' + data.pass),
+    };
   }
 }

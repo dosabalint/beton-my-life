@@ -1,0 +1,30 @@
+<h1>Challenges</h1>
+
+<div *ngIf="challenges$ | async as list">
+  <p-table [value]="list" styleClass="p-datatable-striped">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>id</th>
+        <th>title</th>
+        <th>author</th>
+        <th>endDate</th>
+        <th>outcome</th>
+        <th>proofUrl</th>
+        <th>isActive</th>
+        <th>isDeleted</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>{{ product.id }}</td>
+        <td>{{ product.title }}</td>
+        <td>{{ product.author }}</td>
+        <td>{{ product.endDate }}</td>
+        <td>{{ product.outcome }}</td>
+        <td>{{ product.proofUrl }}</td>
+        <td>{{ product.isActive }}</td>
+        <td>{{ product.isDeleted }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

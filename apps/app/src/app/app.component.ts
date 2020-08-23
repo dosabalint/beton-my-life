@@ -21,6 +21,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sessionService.loadProfile();
+    if (this.sessionService.hasLocalStorageToken()) {
+      this.sessionService.loadProfile();
+    }
   }
 }

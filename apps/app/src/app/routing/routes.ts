@@ -3,6 +3,7 @@ import { LoginComponent } from '../pages/login/login.component';
 import { HomeComponent } from '../pages/home/home.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { ProfileComponent } from '../pages/profile/profile.component';
+import { ChallengesComponent } from '../pages/challenges/challenges.component';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,10 @@ export const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+      },
+      {
+        path: 'challenges',
+        component: ChallengesComponent,
       },
     ],
   },

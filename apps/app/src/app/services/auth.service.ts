@@ -21,9 +21,9 @@ export class AuthService {
 
   getProfile(): Observable<ProfileDto> {
     return this.httpClient.get<ProfileDto>(
-      `${this.environmentService.backendUrl()}/user/me`,
+      `${this.environmentService.backendUrl()}/users/me`,
       {
-        headers: { Authorization: localStorage.getItem('token') },
+        headers: { Authorization: localStorage.getItem('token') || '' },
       }
     );
   }
