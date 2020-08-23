@@ -9,6 +9,7 @@
         pInputText
         [(ngModel)]="firstName"
         (keydown.enter)="this.register()"
+        required
       />
     </div>
 
@@ -21,6 +22,7 @@
         pInputText
         [(ngModel)]="lastName"
         (keydown.enter)="this.register()"
+        required
       />
     </div>
 
@@ -33,6 +35,7 @@
         pInputText
         [(ngModel)]="email"
         (keydown.enter)="this.register()"
+        required
       />
     </div>
 
@@ -45,6 +48,7 @@
         pInputText
         [(ngModel)]="password"
         (keydown.enter)="this.register()"
+        required
       />
     </div>
   </div>

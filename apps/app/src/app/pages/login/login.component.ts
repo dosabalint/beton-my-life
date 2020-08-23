@@ -33,6 +33,15 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    if (!this.isValid()) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Auth Message',
+        detail: 'Please fill form.',
+      });
+      return;
+    }
+
     const token = objectHash(this.email + ':' + this.password);
 
     this.authService.validateToken(token).subscribe(

@@ -33,6 +33,6 @@ export class MenuComponent {
 
   logout() {
     this.sessionService.removeUserToken();
-    this.router.navigate(['home']);
+    this.router.navigate(['login']);
   }
 }

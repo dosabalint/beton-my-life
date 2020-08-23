@@ -31,6 +31,15 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {}
 
   register() {
+    if (!this.isValid()) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Auth Message',
+        detail: 'Please fill form.',
+      });
+      return;
+    }
+
     const token = objectHash(this.email + ':' + this.password);
     const userCreateDto: UserCreateDto = {
       email: this.email,
@@ -51,13 +60,19 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['profile']);
       },
       (error: HttpErrorResponse) => {
-        // if (error.status === 403) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Auth Message',
-          detail: error.status.toString(),
-        });
-        // }
+        if (error.status === 409) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Auth Message',
+            detail: 'This email is already used.',
+          });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Auth Message',
+            detail: error.status.toString() + ' ' + error.statusText,
+          });
+        }
       }
     );
   }

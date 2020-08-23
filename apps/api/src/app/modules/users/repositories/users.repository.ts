@@ -9,6 +9,7 @@ import { UserDto } from '../models/user.dto';
 import { DbCreateMessage } from '../../../types/db-create-message';
 import { User } from '../models/user';
 import { UserCreateDto } from '../models/user-create.dto';
+import { Dictionary } from '../../../types/dictionary';
 
 const chance = Chance();
 
@@ -35,17 +36,17 @@ export class UsersRepository {
 
   getByToken(token: string): Observable<UserDto[]> {
     return this.httpService
-      .get(this.environmentService.getUserDbUrl(), {
+      .get<Dictionary<UserDto>>(this.environmentService.getUserDbUrl(), {
         params: {
           orderBy: '"token"',
           equalTo: `"${token}"`,
         },
       })
-      .pipe(map(({ data }) => data));
+      .pipe(map(({ data: dictionary }) => Object.values(dictionary)));
   }
 
   getFirstByToken(token: string) {
-    return this.getByToken(token).pipe(map((list) => Object.values(list)[0]));
+    return this.getByToken(token).pipe(map((list) => list[0]));
   }
 
   mock(): User {
@@ -61,5 +62,16 @@ export class UsersRepository {
       ...data,
       token: objectHash(data.email + ':' + data.pass),
     };
+  }
+
+  getByEmail(email: string): Observable<UserDto[]> {
+    return this.httpService
+      .get<Dictionary<UserDto>>(this.environmentService.getUserDbUrl(), {
+        params: {
+          orderBy: '"email"',
+          equalTo: `"${email}"`,
+        },
+      })
+      .pipe(map(({ data: dictionary }) => Object.values(dictionary)));
   }
 }
