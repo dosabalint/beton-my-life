@@ -8,5 +8,9 @@ export class ProfileDto {
 
   @IsString()
   @ApiProperty({ type: String })
-  name: string;
+  firstName: string;
+
+  @IsString()
+  @ApiProperty({ type: String })
+  lastName: string;
 }

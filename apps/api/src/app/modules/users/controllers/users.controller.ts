@@ -1,28 +1,44 @@
-import { ApiForbiddenResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Controller, Get, Request, UseGuards } from '@nestjs/common';
+import {
+  ApiConflictResponse,
+  ApiForbiddenResponse,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { Observable } from 'rxjs';
 
-import { UsersRepository } from '../repositories/users.repository';
 import { UsersService } from '../services/users.service';
 import { AuthGuard } from '../../auth/guards/auth.guard';
 import { ProfileDto } from '../models/profile.dto';
 import { DbCreateMessage } from '../../../types/db-create-message';
 import { UserDto } from '../models/user.dto';
+import { UserCreateDto } from '../models/user-create.dto';
 
 @Controller('users')
-@UseGuards(AuthGuard)
 @ApiTags('users')
 export class UsersController {
-  constructor(
-    private userService: UsersService,
-    private userRepository: UsersRepository
-  ) {}
+  constructor(private userService: UsersService) {}
 
   @Get()
+  @UseGuards(AuthGuard)
   @ApiResponse({ status: 200, type: [UserDto] })
   @ApiForbiddenResponse({ description: 'Forbidden' })
   list(): Observable<UserDto[]> {
-    return this.userRepository.list();
+    return this.userService.list();
+  }
+
+  @Post()
+  @ApiResponse({ status: 201, type: UserDto })
+  @ApiConflictResponse({ description: 'Conflict with current state.' })
+  register(@Body() userCreateDto: UserCreateDto) {
+    return this.userService.create(userCreateDto);
   }
 
   @Get('seed')
@@ -33,10 +49,11 @@ export class UsersController {
   }
 
   @Get('me')
+  @UseGuards(AuthGuard)
   @ApiResponse({ status: 200, type: ProfileDto })
   @ApiForbiddenResponse({ description: 'Forbidden' })
   info(@Request() request): ProfileDto {
-    const { name, email } = request.user;
-    return { name, email };
+    const { firstName, lastName, email } = request.user;
+    return { firstName, lastName, email };
   }
 }

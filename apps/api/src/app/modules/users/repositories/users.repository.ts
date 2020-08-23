@@ -6,9 +6,9 @@ import * as objectHash from 'object-hash';
 
 import { EnvironmentService } from '../../environment/services/environment.service';
 import { UserDto } from '../models/user.dto';
-import { extractResponseData } from '../../../helpers/operators/extractResponseData';
 import { DbCreateMessage } from '../../../types/db-create-message';
 import { User } from '../models/user';
+import { UserCreateDto } from '../models/user-create.dto';
 
 const chance = Chance();
 
@@ -19,29 +19,29 @@ export class UsersRepository {
     private httpService: HttpService
   ) {}
 
-  get dbUrl() {
-    return this.environmentService.getUserDbUrl();
-  }
-
   list(): Observable<UserDto[]> {
     return this.httpService
-      .get<UserDto[]>(this.dbUrl)
-      .pipe(extractResponseData());
+      .get<UserDto[]>(this.environmentService.getUserDbUrl())
+      .pipe(map(({ data }) => data));
   }
 
-  create(user: UserDto): Observable<DbCreateMessage> {
-    return this.httpService.post(this.dbUrl, user).pipe(extractResponseData());
+  create(user: UserCreateDto): Observable<DbCreateMessage> {
+    const id = chance.guid();
+
+    return this.httpService
+      .put(this.environmentService.getUserDbUrl(id), { id, ...user })
+      .pipe(map(({ data }) => data));
   }
 
   getByToken(token: string): Observable<UserDto[]> {
     return this.httpService
-      .get(this.dbUrl, {
+      .get(this.environmentService.getUserDbUrl(), {
         params: {
           orderBy: '"token"',
           equalTo: `"${token}"`,
         },
       })
-      .pipe(extractResponseData());
+      .pipe(map(({ data }) => data));
   }
 
   getFirstByToken(token: string) {
@@ -51,7 +51,8 @@ export class UsersRepository {
   mock(): User {
     const data = {
       id: chance.guid(),
-      name: chance.name(),
+      firstName: chance.first(),
+      lastName: chance.last(),
       email: chance.email(),
       pass: chance.word(),
     };

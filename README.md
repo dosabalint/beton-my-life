@@ -2,7 +2,7 @@
 
 ## Project
 
-- [user stories](https://docs.google.com/document/d/1EbOAMZjli7_XOO-_la1sdfmjK8Z7zDaVPo-xUccp8Q4/edit#heading=h.1gdayx1yx6m3)
+- [user stories](https://docs.google.com/document/d/1fo32dUvm5l33xwqE4boR-Sfso31Hos2mIS44N9mlfiA/edit)
 - [ui wireframe](https://www.figma.com/file/viEhKGN6x0Y47CCfMsqWNT/Application-UI-Wireframes)
 
 ## DB

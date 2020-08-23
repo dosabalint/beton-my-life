@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EnvironmentService } from './environment.service';
+import { UserCreateDto } from '../models/user-create.dto';
+import { ProfileDto } from '../models/profile.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -27,9 +29,11 @@ export class AuthService {
       }
     );
   }
-}
 
-interface ProfileDto {
-  name: string;
-  email: string;
+  register(userCreateDto: UserCreateDto): Observable<UserCreateDto> {
+    return this.httpClient.post<UserCreateDto>(
+      `${this.environmentService.backendUrl()}/users`,
+      userCreateDto
+    );
+  }
 }

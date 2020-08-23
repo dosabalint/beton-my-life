@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { SessionQuery } from '../../store/session.query';
-import { SessionService } from '../../services/session.service';
+import { SessionService } from '../../store/session.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -33,6 +33,6 @@ export class MenuComponent {
 
   logout() {
     this.sessionService.removeUserToken();
-    this.router.navigate(['login']);
+    this.router.navigate(['home']);
   }
 }

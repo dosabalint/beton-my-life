@@ -10,7 +10,8 @@
         type="text"
         pInputText
         [(ngModel)]="email"
-        (keydown.enter)="this.tryLogin()"
+        (keydown.enter)="this.login()"
+        required
       />
     </div>
 
@@ -22,10 +23,11 @@
         type="password"
         pInputText
         [(ngModel)]="password"
-        (keydown.enter)="this.tryLogin()"
+        (keydown.enter)="this.login()"
+        required
       />
     </div>
   </div>
 
-  <p-button (click)="this.tryLogin()">Login</p-button>
+  <p-button (click)="this.login()" [disabled]="!isValid()">Login</p-button>
 </div>

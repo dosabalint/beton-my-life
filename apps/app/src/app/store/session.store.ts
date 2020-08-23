@@ -3,14 +3,16 @@ import { Injectable } from '@angular/core';
 
 export interface SessionState {
   token: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
 }
 
 export function createInitialState(): SessionState {
   return {
     token: localStorage.getItem('token'),
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
   };
 }

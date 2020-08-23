@@ -3,7 +3,10 @@ import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class EnvironmentService {
-  getUserDbUrl(): string {
+  getUserDbUrl(path: string = ''): string {
+    if (path) {
+      return environment.userDbUrl.replace('.json', path + '.json');
+    }
     return environment.userDbUrl;
   }
 

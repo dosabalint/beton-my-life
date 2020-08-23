@@ -3,11 +3,10 @@
 <p-card styleClass="p-shadow-2">
   <!-- name -->
   <div>
-    <strong>Név:</strong> {{ (sessionQuery.userFullName$ | async) || 'N/A' }}
+    <strong>Név:</strong> {{ sessionQuery.userFirstName$ | async }}
+    {{ sessionQuery.userLastName$ | async }}
   </div>
 
   <!-- email -->
-  <div>
-    <strong>Email:</strong> {{ (sessionQuery.userEmail$ | async) || 'N/A' }}
-  </div>
+  <div><strong>Email:</strong> {{ sessionQuery.userEmail$ | async }}</div>
 </p-card>

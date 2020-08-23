@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { SessionStore } from '../store/session.store';
-import { SessionQuery } from '../store/session.query';
-import { AuthService } from './auth.service';
+import { SessionStore } from './session.store';
+import { SessionQuery } from './session.query';
+import { AuthService } from '../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
@@ -15,13 +15,15 @@ export class SessionService {
   ) {}
 
   updateUserToken(token: string) {
-    this.sessionStore.update({ token });
     localStorage.setItem('token', token);
+    localStorage.getItem('token');
+    this.sessionStore.update({ token });
+    console.log(token);
   }
 
   removeUserToken() {
+    localStorage.removeItem('token');
     this.sessionStore.update({ token: '' });
-    // localStorage.removeItem('token');
   }
 
   loadProfile() {
@@ -42,7 +44,7 @@ export class SessionService {
     );
   }
 
-  hasLocalStorageToken() {
-    return !!localStorage.getItem('token');
+  removeProfile() {
+    this.sessionStore.update({ email: '', firstName: '', lastName: '' });
   }
 }

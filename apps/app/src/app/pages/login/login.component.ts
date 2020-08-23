@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SessionService } from '../../services/session.service';
+import { SessionService } from '../../store/session.service';
 import { SessionQuery } from '../../store/session.query';
 import { AuthService } from '../../services/auth.service';
 import * as objectHash from 'object-hash';
@@ -13,8 +13,8 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  email: any = 'dosa.balint@gmail.com';
-  password: any = 'kismacska';
+  email = 'dosa.balint@gmail.com';
+  password = 'kismacska';
 
   constructor(
     public sessionQuery: SessionQuery,
@@ -32,22 +32,36 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  tryLogin() {
+  login() {
     const token = objectHash(this.email + ':' + this.password);
 
     this.authService.validateToken(token).subscribe(
       () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Auth Message',
+          detail: 'Successful login.',
+        });
         this.sessionService.updateUserToken(token);
       },
       (error: HttpErrorResponse) => {
-        if (error.status === 403) {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Auth Message',
-            detail: 'Wrong password and email combination.',
-          });
+        switch (error.status) {
+          case 403:
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Auth Message',
+              detail: 'Wrong password and email combination.',
+            });
+            break;
+
+          default:
+            throw error;
         }
       }
     );
+  }
+
+  isValid() {
+    return !!this.email && !!this.password;
   }
 }

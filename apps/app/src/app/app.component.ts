@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Router } from '@angular/router';
-import { SessionService } from './services/session.service';
+import { SessionService } from './store/session.service';
+import { SessionQuery } from './store/session.query';
 
 @Component({
   selector: 'beton-my-life-root',
@@ -15,14 +16,19 @@ export class AppComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private sessionQuery: SessionQuery
   ) {
     this.loading = true;
   }
 
   ngOnInit() {
-    if (this.sessionService.hasLocalStorageToken()) {
-      this.sessionService.loadProfile();
-    }
+    this.sessionQuery.isLoggedIn$.subscribe((isLoggedIn) => {
+      if (isLoggedIn) {
+        this.sessionService.loadProfile();
+      } else {
+        this.sessionService.removeProfile();
+      }
+    });
   }
 }

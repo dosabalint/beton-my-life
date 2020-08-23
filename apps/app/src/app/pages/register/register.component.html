@@ -1,0 +1,55 @@
+<div *ngIf="!(sessionQuery.isLoggedIn$ | async)">
+  <div class="p-fluid p-formgrid p-grid p-mb-2">
+    <!-- email -->
+    <div class="p-field p-col-6">
+      <label for="first_name_input"> First Name </label>
+      <input
+        id="first_name_input"
+        type="text"
+        pInputText
+        [(ngModel)]="firstName"
+        (keydown.enter)="this.register()"
+      />
+    </div>
+
+    <!-- email -->
+    <div class="p-field p-col-6">
+      <label for="last_name_input"> Last Name </label>
+      <input
+        id="last_name_input"
+        type="text"
+        pInputText
+        [(ngModel)]="lastName"
+        (keydown.enter)="this.register()"
+      />
+    </div>
+
+    <!-- email -->
+    <div class="p-field p-col-6">
+      <label for="email_input"> Email </label>
+      <input
+        id="email_input"
+        type="text"
+        pInputText
+        [(ngModel)]="email"
+        (keydown.enter)="this.register()"
+      />
+    </div>
+
+    <!-- password -->
+    <div class="p-field p-col-6">
+      <label for="password_input"> Password </label>
+      <input
+        id="password_input"
+        type="password"
+        pInputText
+        [(ngModel)]="password"
+        (keydown.enter)="this.register()"
+      />
+    </div>
+  </div>
+
+  <p-button (click)="this.register()" [disabled]="!isValid()">
+    Register
+  </p-button>
+</div>
